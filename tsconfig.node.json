@@ -5,5 +5,14 @@
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true
   },
+  "baseUrl": "./src",
+  "paths": {
+    "components/*": ["components/*"],
+    "helper/*": ["helper/*"],
+    "hooks/*": ["hooks/*"],
+    "theme/*": ["./src/theme/*"],
+    "layouts/*": ["layouts/*"],
+    "types/*": ["types/*"]
+  },
   "include": ["vite.config.ts"]
 }
