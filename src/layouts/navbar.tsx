@@ -1,4 +1,5 @@
-import { Box, HStack, Image, Text } from "@chakra-ui/react";
+import { Box, HStack, Icon, Image, Text } from "@chakra-ui/react";
+import { SearchIcon, ShoppingIcon } from "compenents/icons";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -18,7 +19,7 @@ const Navbar = () => {
           h="full"
           top="0"
           w="full"
-          bg="white"
+          bg="#000000"
           zIndex={-1}
           animate={
             mousLeave! ? { width: "0px", left: "50%", opacity: "0" } : undefined
@@ -36,7 +37,7 @@ const Navbar = () => {
         color="gray"
         cursor="pointer"
         onHoverStart={() => setHoverd(i)}
-        whileHover={{ color: "#000000" }}
+        whileHover={{ color: "#FFFFFF" }}
       >
         {e}
       </Text>
@@ -66,21 +67,20 @@ const Navbar = () => {
         {categories.map(ElementsHover)}
       </HStack>
       <HStack spacing="20px" alignItems="center">
-        {/* <Box
-          as={motion.div}
-          whileHover={{ backgroundColor: "gren" }}
-          cursor="pointer"
-          src="/search-line.svg"
-        />
         <Box
           as={motion.div}
-          h="auto"
-          w="auto"
-          bg="green"
-          whileHover={{ backgroundColor: "gren" }}
+          whileHover={{ backgroundColor: "#000000" }}
           cursor="pointer"
-          src="/shopping-line.svg"
-        /> */}
+        >
+          <SearchIcon h="50px" w="50px" p="15px" />
+        </Box>
+        <Box
+          as={motion.div}
+          whileHover={{ backgroundColor: "#000000" }}
+          cursor="pointer"
+        >
+          <ShoppingIcon h="50px" w="50px" p="15px" />
+        </Box>
       </HStack>
     </HStack>
   );
