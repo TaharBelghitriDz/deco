@@ -10,7 +10,12 @@ const HomeComponent = () => {
       textAlign="center"
       color="white"
     >
-      <Image w="full" src="/cover.png" h="100vh" objectFit="cover" />
+      <Image
+        w="full"
+        src="https://images.unsplash.com/photo-1540638349517-3abd5afc5847?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+        h="100vh"
+        objectFit="cover"
+      />
       <VStack
         pos="absolute"
         bottom="30px"
