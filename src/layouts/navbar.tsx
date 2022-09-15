@@ -1,11 +1,4 @@
-import {
-  Box,
-  ChakraProps,
-  ChakraStyledOptions,
-  HStack,
-  Image,
-  Text,
-} from "@chakra-ui/react";
+import { Box, HStack, Image, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -59,6 +52,7 @@ const Navbar = () => {
       pos="fixed"
       px="50px"
       color="white"
+      zIndex={10000}
       alignItems="center"
     >
       <Image src="/Deco.svg" />
@@ -72,21 +66,21 @@ const Navbar = () => {
         {categories.map(ElementsHover)}
       </HStack>
       <HStack spacing="20px" alignItems="center">
-        <Image
-          as={motion.img}
+        {/* <Box
+          as={motion.div}
           whileHover={{ backgroundColor: "gren" }}
           cursor="pointer"
           src="/search-line.svg"
         />
-        <Image
-          as={motion.image}
+        <Box
+          as={motion.div}
           h="auto"
           w="auto"
           bg="green"
           whileHover={{ backgroundColor: "gren" }}
           cursor="pointer"
           src="/shopping-line.svg"
-        />
+        /> */}
       </HStack>
     </HStack>
   );
