@@ -16,6 +16,7 @@ const HomeComponent = () => {
         h="100vh"
         objectFit="cover"
       />
+      <Box pos="absolute" h="full" w="full" bg="rgb(0,0,0,50%)" />
       <VStack
         pos="absolute"
         bottom="30px"
