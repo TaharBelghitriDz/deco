@@ -1,50 +1,88 @@
-import { Box, HStack, Text, VStack } from "@chakra-ui/react";
-import { motion, useInView } from "framer-motion";
 import {
-  forwardRef,
-  MutableRefObject,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { UseState } from "types";
-import useStore, { useGetFun, useGetState } from "utils/state";
+  Box,
+  Collapse,
+  HStack,
+  Image,
+  Text,
+  useDisclosure,
+  VStack,
+} from "@chakra-ui/react";
+import { motion, useAnimationControls, useInView } from "framer-motion";
+import { forwardRef, useEffect, useRef, useState } from "react";
+import { StateType } from "types";
+import { useGetFun, useGetState } from "utils/state";
 import { Arrow } from "./icons";
 
-const useView = (ref: any) => useInView(ref);
+const Array = forwardRef((props: { key: number; i: number }, ref: any) => {
+  const { isOpen, onToggle } = useDisclosure();
+  const isLeftVIew = useInView(ref);
+  const controls = useAnimationControls();
+  useGetFun("isViewed")(props.i, isLeftVIew);
 
-const Array = forwardRef(
-  (
-    props: { key: number; ref: MutableRefObject<null>; i: number },
-    ref: any
-  ) => {
-    const setView = useStore((state) => ({
-      setView: state.isViewed,
-    }))["setView"];
-
-    const useGetFun1 = (key: keyof Omit<UseState, "state">) =>
-      useStore((state) => state[key] as UseState[typeof key]);
-
-    // console.log("typeof useGetFun1");
-    // console.log(typeof useGetFun1("change"));
-    // console.log(useGetFun1("isViewed"));
-    // const r = useGetFun1("isViewed");
-    // console.log("t");
-    // console.log(r(0, true));
-
-    setView(props.i, useView(ref));
-    //  console.log("item" + props.i + " => " + useView(ref));
-
-    return (
-      <Box {...props} ref={ref} h="50px" w="300px" bg="green" flex="none" />
-    );
-  }
-);
+  return (
+    <>
+      <VStack
+        {...props}
+        as={motion.div}
+        ref={ref}
+        onHoverStart={() => controls.start({ opacity: 1 })}
+        onHoverEnd={() => controls.start({ opacity: 0 })}
+        flex="none"
+        spacing="0"
+        w="300px"
+        h="400px"
+        alignItems="flex-end"
+        overflow="hidden"
+        flexGrow={1}
+        pos="relative"
+      >
+        <Image
+          src="/cover.png"
+          objectFit="cover"
+          bg="green"
+          flex="none"
+          userSelect="none"
+          pos="absolute"
+          top="0"
+          left="0"
+          w="full"
+          h="full"
+        />
+        <Box
+          h="full"
+          w="full"
+          zIndex={4}
+          bgGradient="linear(#FFFFFF00 0%, rgb(0,0,0,50%) 100%)"
+        />
+        <VStack
+          as={motion.div}
+          animate={controls}
+          alignItems="flex-start"
+          flex="none"
+          w="full"
+          h="auto"
+          p="10px"
+          bg="rgb(0,0,0,50%)"
+          zIndex={3}
+          opacity="0"
+        >
+          <Text
+            fontSize="32px"
+            lineHeight="32px"
+            fontWeight="bold"
+            color="white"
+          >
+            some product name
+          </Text>
+          <Text color="yellow">$ 134.68</Text>
+        </VStack>
+      </VStack>
+    </>
+  );
+});
 
 const NewProducts = () => {
-  const [current, setCurrent] = useState<number>(0);
-
-  const detecters = [useRef(null), useRef(null)];
+  const ref = useRef(null);
 
   const products = [
     useRef(null),
@@ -53,9 +91,12 @@ const NewProducts = () => {
     useRef(null),
     useRef(null),
     useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
   ];
 
-  const viewedItems = useGetState("viewdItems");
+  const viewedItems = useGetState("viewdItems") as StateType["viewdItems"];
 
   useEffect(() => {
     console.log("viewedItems");
@@ -76,38 +117,32 @@ const NewProducts = () => {
       <HStack>
         <ArrowAni
           onClick={() => {
-            console.log("here");
-            console.log(viewedItems);
-
-            (products[3].current as any).scrollIntoView({
+            const nextOne = viewedItems.indexOf(true) > 0;
+            if (!nextOne) return;
+            (
+              products[viewedItems.indexOf(true) - 1].current as any
+            ).scrollIntoView({
               behavior: "smooth",
             });
-            // if (current + 1 <= products.length) {
-            //   setCurrent((i) => i + 1);
-            //   (products[current].current as any).scrollIntoView({
-            //     behavior: "smooth",
-            //   });
-            // }
           }}
         />
         <ArrowAni
           onClick={() => {
-            if (current >= 1) {
-              setCurrent((i) => i - 1);
-              (products[current].current as any).scrollIntoView({
-                behavior: "smooth",
-              });
-            }
+            const nextOne = viewedItems.lastIndexOf(true) < products.length - 1;
+            if (!nextOne) return;
+            (
+              products[viewedItems.lastIndexOf(true) + 1].current as any
+            ).scrollIntoView({
+              behavior: "smooth",
+            });
           }}
           transform="rotate(180deg)"
         />
       </HStack>
-      <HStack overflow="hidden" w="full" flexGrow={1}>
-        <p ref={detecters[0]} />
+      <HStack overflow="hidden" w="975px" flexGrow={1} ref={ref} spacing="25px">
         {products.map((e, i) => {
           return <Array i={i} key={i} ref={products[i]} />;
         })}
-        <p ref={detecters[1]} />
       </HStack>
     </VStack>
   );
