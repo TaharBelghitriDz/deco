@@ -37,15 +37,17 @@ const HomeComponent = () => {
         </Text>
         <Box />
         <Box />
-        <Text color="gray" maxW="500px">
+        <Box color="gray" maxW="500px">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
           vulputate libero et velit interdum, ac aliquet odio mattis. Class
+          <Text />
           aptent taciti sociosqu ad litora torquent per conubia nostra, per
-          inceptos himenaeos. Lorem ipsum dolor sit amet, consectetur adipiscing
-          elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
-          Class aptent taciti sociosqu ad litora torquent per conubia nostra,
-          per inceptos himenaeos.
-        </Text>
+          inceptos himenaeos.
+          <Text /> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+          vulputate libero et velit interdum, ac aliquet odio mattis. Class
+          aptent taciti sociosqu ad litora torquent per conubia nostra, per
+          inceptos himenaeos.
+        </Box>
       </VStack>
     </VStack>
   );
