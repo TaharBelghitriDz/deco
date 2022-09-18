@@ -17,6 +17,7 @@ export default extendTheme({
     gray: "#B9B9B9",
     black: "#111111",
     yellow: "#F6AA1C",
+    green: "#62885D",
   },
   fonts: {
     Formal: "'Petit Formal Script', serif;",
