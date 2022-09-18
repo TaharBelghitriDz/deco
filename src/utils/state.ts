@@ -10,12 +10,10 @@ const useStore = create<UseState>((set) => ({
     set((e) => ((e.state.viewdItems[item] = states), e)),
 }));
 
-export const useGetFun = (
-  key: keyof Omit<UseState, "state">,
-  p: Parameters<UseState[typeof key]>
-) => useStore((state) => (state[key] as any)(...p));
+export const useGetFun = (key: keyof Omit<UseState, "state">) =>
+  useStore((state) => state[key] as any);
 
 export const useGetState = (key: keyof StateType) =>
-  useStore((state) => state.state[key], shallow);
+  useStore((state) => state.state[key] as StateType[typeof key], shallow);
 
 export default useStore;
