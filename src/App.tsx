@@ -1,4 +1,5 @@
 import { ChakraProvider, Divider, VStack } from "@chakra-ui/react";
+import Goals from "compenents/goals.component";
 import HomeComponent from "compenents/home.component";
 import NewProducts from "compenents/newproducts";
 import Footer from "layouts/footer";
@@ -11,7 +12,7 @@ function App() {
       <Navbar />
       <HomeComponent />
       <NewProducts />
-
+      <Goals />
       <Footer />
     </VStack>
   );
