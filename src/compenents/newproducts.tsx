@@ -98,11 +98,6 @@ const NewProducts = () => {
 
   const viewedItems = useGetState("viewdItems") as StateType["viewdItems"];
 
-  useEffect(() => {
-    console.log("viewedItems");
-    console.log(viewedItems);
-  }, [viewedItems]);
-
   return (
     <VStack maxW="1000px" spacing="50px" pt="150px">
       <Text fontSize="50px" fontWeight="bold">
