@@ -14,7 +14,6 @@ import { useGetFun, useGetState } from "utils/state";
 import { Arrow } from "./icons";
 
 const Array = forwardRef((props: { key: number; i: number }, ref: any) => {
-  const { isOpen, onToggle } = useDisclosure();
   const isLeftVIew = useInView(ref);
   const controls = useAnimationControls();
   useGetFun("isViewed")(props.i, isLeftVIew);
@@ -39,14 +38,13 @@ const Array = forwardRef((props: { key: number; i: number }, ref: any) => {
         <Image
           src="/cover.png"
           objectFit="cover"
-          bg="green"
           flex="none"
           userSelect="none"
           pos="absolute"
           top="0"
           left="0"
           w="full"
-          h="full"
+          h={400}
         />
         <Box
           h="full"
@@ -99,9 +97,9 @@ const NewProducts = () => {
   const viewedItems = useGetState("viewdItems") as StateType["viewdItems"];
 
   return (
-    <VStack maxW="1000px" spacing="50px" pt="150px">
-      <Text fontSize="50px" fontWeight="bold">
-        our new products
+    <VStack maxW="1500px" spacing="50px" pt="150px">
+      <Text fontSize="50px" fontWeight="bold" fontFamily="playFair">
+        Our New Products
       </Text>
       <Text color="gray" textAlign="center" maxW="700px">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
@@ -112,29 +110,31 @@ const NewProducts = () => {
       <HStack>
         <ArrowAni
           onClick={() => {
-            const nextOne = viewedItems.indexOf(true) > 0;
-            if (!nextOne) return;
-            (
-              products[viewedItems.indexOf(true) - 1].current as any
-            ).scrollIntoView({
+            (ref.current as any).scrollBy({
+              top: 0,
+              left: -325,
               behavior: "smooth",
             });
           }}
         />
         <ArrowAni
           onClick={() => {
-            const nextOne = viewedItems.lastIndexOf(true) < products.length - 1;
-            if (!nextOne) return;
-            (
-              products[viewedItems.lastIndexOf(true) + 1].current as any
-            ).scrollIntoView({
+            (ref.current as any).scrollBy({
+              top: 0,
+              left: 325,
               behavior: "smooth",
             });
           }}
           transform="rotate(180deg)"
         />
       </HStack>
-      <HStack overflow="hidden" w="975px" flexGrow={1} ref={ref} spacing="25px">
+      <HStack
+        overflow="hidden"
+        w="1300px"
+        flexGrow={1}
+        ref={ref}
+        spacing="25px"
+      >
         {products.map((e, i) => {
           return <Array i={i} key={i} ref={products[i]} />;
         })}

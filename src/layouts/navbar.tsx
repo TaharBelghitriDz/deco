@@ -7,14 +7,13 @@ import { useEffect, useState } from "react";
 const Navbar = () => {
   const [hover, setHoverd] = useState<number>(-1);
   const [mousLeave, setMousLeave] = useState<boolean>(false);
-  const { isTop } = useWindowScroll();
 
   const categories = ["chairs", "tables", "desk", "beds", "lights", "sofa"];
 
   const ElementsHover = (e: string, i: number) => (
     <Stack
       pos="relative"
-      h={isTop ? "full" : "75px"}
+      h="full"
       w="full"
       alignItems="center"
       justifyContent="center"
@@ -26,14 +25,13 @@ const Navbar = () => {
           as={motion.div}
           layoutId="i"
           pos="absolute"
-          h="full"
           top="0"
+          h="full"
           w="full"
-          bg={isTop ? "#000000" : "#FFFFFF"}
+          bg="#FFFFFF"
+          style={{ opacity: "1" }}
           zIndex={-1}
-          animate={
-            mousLeave! ? { width: "0px", left: "50%", opacity: "0" } : undefined
-          }
+          animate={mousLeave! ? { opacity: "0.0" } : undefined}
         />
       )}
       <Text
@@ -47,7 +45,7 @@ const Navbar = () => {
         color="gray"
         cursor="pointer"
         onHoverStart={() => setHoverd(i)}
-        whileHover={{ color: isTop ? "#FFFFFF" : "#000000" }}
+        whileHover={{ color: "#000000" }}
       >
         {e}
       </Text>
@@ -62,7 +60,7 @@ const Navbar = () => {
       zIndex={10000}
       alignItems="center"
       justifyContent="center"
-      bg={isTop ? "" : "black"}
+      bg="black"
     >
       <HStack
         justifyContent="space-between"
@@ -88,8 +86,8 @@ const Navbar = () => {
           <Box
             as={motion.div}
             whileHover={{
-              backgroundColor: isTop ? "#000000" : "#ffffff",
-              color: isTop ? "#FFFFFF" : "#000000",
+              backgroundColor: "#ffffff",
+              color: "#000000",
             }}
             cursor="pointer"
             rounded="full"
@@ -99,8 +97,8 @@ const Navbar = () => {
           <Box
             as={motion.div}
             whileHover={{
-              backgroundColor: isTop ? "#000000" : "#ffffff",
-              color: isTop ? "#FFFFFF" : "#000000",
+              backgroundColor: "#ffffff",
+              color: "#000000",
             }}
             cursor="pointer"
             rounded="full"

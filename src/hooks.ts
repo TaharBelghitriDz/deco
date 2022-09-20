@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useInView } from "framer-motion";
+import React, { HtmlHTMLAttributes, useEffect, useRef, useState } from "react";
+import { useGetFun } from "utils/state";
 
 export const useWindowScroll = () => {
   const [isTop, setTop] = useState<boolean>(true);
@@ -16,4 +18,15 @@ export const useWindowScroll = () => {
   });
 
   return { isTop, x };
+};
+
+export const useAnimatedView = (i: number) => {
+  const refArray = [useRef(null), useRef(null), useRef(null), useRef(null)];
+
+  const isVisible = useInView(refArray[i]);
+
+  const setView = useGetFun("viewedItem");
+  if (isVisible) setView(i);
+
+  return refArray[i];
 };

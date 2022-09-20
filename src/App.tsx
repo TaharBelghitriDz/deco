@@ -2,6 +2,8 @@ import { ChakraProvider, Divider, VStack } from "@chakra-ui/react";
 import Goals from "compenents/goals.component";
 import HomeComponent from "compenents/home.component";
 import NewProducts from "compenents/newproducts";
+import WhatWeDo from "compenents/whatwedo.component";
+import { AnimatePresence } from "framer-motion";
 import Footer from "layouts/footer";
 import Navbar from "layouts/navbar";
 import theme from "theme";
@@ -9,10 +11,11 @@ import theme from "theme";
 function App() {
   return (
     <VStack w="full" spacing="0">
-      <Navbar />
+      {/* <Navbar />
       <HomeComponent />
+      <WhatWeDo />
       <NewProducts />
-      <Goals />
+      <Goals /> */}
       <Footer />
     </VStack>
   );
@@ -20,6 +23,8 @@ function App() {
 
 export default () => (
   <ChakraProvider theme={theme}>
-    <App />
+    <AnimatePresence>
+      <App />
+    </AnimatePresence>
   </ChakraProvider>
 );

@@ -22,5 +22,6 @@ export default extendTheme({
   fonts: {
     Formal: "'Petit Formal Script', serif;",
     Josefin: "'Josefin Sans', sans-serif;",
+    playFair: "'Playfair Display', serif;",
   },
 });
