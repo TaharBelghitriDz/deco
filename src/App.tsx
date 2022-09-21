@@ -11,11 +11,11 @@ import theme from "theme";
 function App() {
   return (
     <VStack w="full" spacing="0">
-      {/* <Navbar />
+      <Navbar />
       <HomeComponent />
       <WhatWeDo />
       <NewProducts />
-      <Goals /> */}
+      <Goals />
       <Footer />
     </VStack>
   );
