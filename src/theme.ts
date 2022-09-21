@@ -24,4 +24,13 @@ export default extendTheme({
     Josefin: "'Josefin Sans', sans-serif;",
     playFair: "'Playfair Display', serif;",
   },
+  breakpoints: {
+    start: "0px",
+    sm: "320px",
+    os: "500px",
+    md: "768px",
+    lg: "960px",
+    xl: "1300px",
+    "2xl": "1536px",
+  },
 });
