@@ -1,4 +1,12 @@
-import { Box, HStack, Image, Text, VStack } from "@chakra-ui/react";
+import {
+  Highlight,
+  HStack,
+  Image,
+  Link,
+  Stack,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
 const footerData = [
@@ -21,34 +29,48 @@ const Footer = () => {
     <VStack
       bg="black"
       w="full"
-      alignItems="start"
+      alignItems="center"
       p="30px"
       color="white"
       spacing="30px"
+      pt="100px"
     >
-      <VStack alignItems="inherit">
-        <Image src="/deco-footer.svg" w="300px" />
-        <Text>made by tahar belghitri</Text>
-      </VStack>
-      <HStack alignItems="start">
-        {footerData.map((e: any, i: number) => {
-          return (
-            <VStack key={i}>
-              <Text>{e.title}</Text>
-              {e.subtitles.map((e: any, i: number) => {
-                <Text
-                  key={i}
-                  color="white"
-                  as={motion.div}
-                  whileHover={{ color: "yellow" }}
-                >
-                  {e}
-                </Text>;
-              })}
-            </VStack>
-          );
-        })}
-      </HStack>
+      <Stack maxW="1000px" w="full" alignItems="start">
+        <VStack alignItems="inherit">
+          <Image src="/deco-footer.svg" w="300px" />
+          <Link href="https://github.com/TaharBelghitriDz" isExternal>
+            <Text>
+              <Highlight query="tahar belghitri" styles={{ color: "blue.300" }}>
+                made by tahar belghitri
+              </Highlight>
+            </Text>
+          </Link>
+        </VStack>
+        <HStack alignItems="start" spacing="0" flexWrap="wrap">
+          {footerData.map((e: any, i: number) => {
+            return (
+              <VStack key={i} alignItems="start" p="30px">
+                <Text>{e.title}</Text>
+
+                {e.subtitles.map((e: any, i: number) => (
+                  <Text
+                    key={i}
+                    color="gray"
+                    as={motion.div}
+                    cursor="pointer"
+                    whileHover={{
+                      color: "#F6AA1C",
+                      transition: { duration: 0.2 },
+                    }}
+                  >
+                    {e}
+                  </Text>
+                ))}
+              </VStack>
+            );
+          })}
+        </HStack>
+      </Stack>
     </VStack>
   );
 };
