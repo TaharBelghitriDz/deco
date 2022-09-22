@@ -79,10 +79,22 @@ const Navbar = () => {
           alignItems="center"
           onHoverEnd={() => setMousLeave(true)}
           onHoverStart={() => setMousLeave(false)}
+          display={{ start: "none", lg: "flex" }}
         >
           {categories.map(ElementsHover)}
         </HStack>
-        <HStack spacing="20px" alignItems="center">
+        <HStack spacing="0px" alignItems="center">
+          <Box
+            as={motion.div}
+            whileHover={{
+              backgroundColor: "#ffffff",
+              color: "#000000",
+            }}
+            cursor="pointer"
+            rounded="full"
+          >
+            <SearchIcon h="50px" w="50px" p="15px" />
+          </Box>
           <Box
             as={motion.div}
             whileHover={{

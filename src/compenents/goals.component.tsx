@@ -1,132 +1,72 @@
-import { HStack, Image, Spinner, Stack, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  ChakraProps,
+  HStack,
+  Image,
+  Stack,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { motion, useAnimationControls, useInView } from "framer-motion";
 import { useRef } from "react";
+import products from "utils/products";
 
-const Elmnt = () => {
-  const ref1 = useRef(null);
-  const ref2 = useRef(null);
+const Elmnt = (
+  props: ChakraProps & { products: { src: string; main: string }[] }
+) => {
+  const ref = [useRef(null), useRef(null), useRef(null)];
+  const isViewed = [useInView(ref[0]), useInView(ref[1]), useInView(ref[2])];
 
-  const ref1IsViewed = useInView(ref1);
-  const ref2IsViewed = useInView(ref2);
-
-  const controlls1 = useAnimationControls();
-  const controlls2 = useAnimationControls();
-
-  if (ref1IsViewed)
-    controlls1.start({
-      opacity: 1,
-      transition: { duration: 0.2 },
-    });
-
-  if (ref2IsViewed)
-    controlls2.start({
-      opacity: 1,
-      transition: { duration: 0.2 },
-    });
+  const controllers = [
+    useAnimationControls(),
+    useAnimationControls(),
+    useAnimationControls(),
+  ];
 
   return (
-    <>
-      <HStack
-        justifyContent="space-between"
-        w="full"
-        alignItems="start"
-        h="auto"
-        opacity={0}
-        overflow="hidden"
-        as={motion.div}
-        animate={controlls1}
-      >
-        <p />
-
-        <Image
-          as={motion.img}
-          initial={{ width: "0" }}
+    <Stack w={{ start: "200px", md: "full" }} {...props}>
+      {props.products.map((e, i) => (
+        <Box
+          h="auto"
+          w="auto"
+          key={i}
+          pos="relative"
+          as={motion.div}
+          opacity={0}
           animate={
-            ref1IsViewed ? { width: "300px", transition: { type: "just" } } : {}
+            isViewed[i]
+              ? { opacity: 1, transition: { duration: 0.2, delay: 0.5 } }
+              : {}
           }
-          h="200px"
-          src="/cover.png"
-        />
-
-        <Stack w="400px" h="300px" overflow="hidden" pos="relative">
-          <VStack
-            as={motion.div}
-            alignItems="start"
-            pos="absolute"
+          ref={ref[i]}
+          onHoverStart={() => controllers[i].start({ opacity: 1 })}
+          onHoverEnd={() => controllers[i].start({ opacity: 0 })}
+          overflow="hidden"
+        >
+          <Image src={e.src} w="300px" />
+          <Box
             top="0"
             left="0"
+            pos="absolute"
+            h="full"
+            w="full"
+            bg="rgb(0,0,0,50%)"
+            p="20px"
             opacity={0}
-            initial={{ top: "100px", opacity: 0 }}
-            animate={
-              ref1IsViewed
-                ? { top: "0px", opacity: 1, transition: { type: "just" } }
-                : {}
-            }
+            as={motion.div}
+            animate={controllers[i]}
           >
-            <Text fontWeight="bold" fontSize="30px">
-              sofa
+            <Text color="white" fontWeight="bold" fontSize="30px">
+              {e.main}
             </Text>
             <Text color="gray">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-              vulputate libero et velit interdum, ac aliquet odio mattis. Class
-              aptent taciti sociosqu ad litora torquent per conubia nostra, per
-              inceptos himenaeos. Curabitur tempus urna at turpis condimentum
-              lobortis.
+              vulputate libero et velit interdum,
             </Text>
-          </VStack>
-        </Stack>
-      </HStack>
-      <p ref={ref1} />
-
-      <HStack
-        justifyContent="space-between"
-        w="full"
-        alignItems="start"
-        opacity={0}
-        overflow="hidden"
-        as={motion.div}
-        animate={controlls2}
-      >
-        <p />
-        <Stack w="400px" h="300px" overflow="hidden" pos="relative">
-          <VStack
-            as={motion.div}
-            alignItems="start"
-            pos="absolute"
-            top="0"
-            left="0"
-            opacity={0}
-            initial={{ top: "100px", opacity: 0 }}
-            animate={
-              ref2IsViewed
-                ? { top: "0px", opacity: 1, transition: { type: "just" } }
-                : {}
-            }
-          >
-            <Text fontWeight="bold" fontSize="30px">
-              sofa
-            </Text>
-            <Text color="gray" ref={ref2}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-              vulputate libero et velit interdum, ac aliquet odio mattis. Class
-              aptent taciti sociosqu ad litora torquent per conubia nostra, per
-              inceptos himenaeos. Curabitur tempus urna at turpis condimentum
-              lobortis.
-            </Text>
-          </VStack>
-        </Stack>
-        <Image
-          as={motion.img}
-          initial={{ width: "0" }}
-          animate={
-            ref2IsViewed ? { width: "300px", transition: { type: "just" } } : {}
-          }
-          h="200px"
-          src="/cover.png"
-        />
-      </HStack>
-      <p ref={ref2} />
-    </>
+          </Box>
+        </Box>
+      ))}
+    </Stack>
   );
 };
 
@@ -135,7 +75,7 @@ const Goals = () => {
   const isVIewed = useInView(ref);
   return (
     <VStack
-      pt="150px"
+      py="150px"
       w="full"
       maxW="1000px"
       alignItems="starts"
@@ -143,8 +83,7 @@ const Goals = () => {
     >
       <Text
         as={motion.div}
-        color="green"
-        fontSize="50px"
+        fontSize={{ start: "30px", md: "50px" }}
         fontWeight="bold"
         fontFamily="playFair"
         opacity={0}
@@ -158,7 +97,7 @@ const Goals = () => {
         ref={ref}
         opacity={0}
         as={motion.div}
-        animate={isVIewed && { opacity: 1, transition: { delay: 0.5 } }}
+        animate={isVIewed && { opacity: 1, transition: { duration: 0.5 } }}
       >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
         libero et velit interdum, ac aliquet odio mattis. Class aptent taciti
@@ -166,17 +105,33 @@ const Goals = () => {
         Curabitur tempus urna at turpis condimentum lobortis.
       </Text>
       <Image
-        src="/cover.png"
+        src="/our-goal.jpg"
         w="full"
+        objectFit="cover"
         opacity={0}
         as={motion.img}
-        animate={isVIewed && { opacity: 1, transition: { delay: 1 } }}
+        animate={isVIewed ? { opacity: 1, transition: { duration: 0.5 } } : {}}
       />
-      <VStack spacing="0" pt="100px">
-        <Elmnt />
-        <Elmnt />
-        <Elmnt />
-      </VStack>
+      <Text
+        pt="100px"
+        as={motion.div}
+        fontSize={{ start: "30px", md: "50px" }}
+        fontWeight="bold"
+        fontFamily="playFair"
+        opacity={0}
+        animate={isVIewed && { opacity: 1 }}
+        w="80%"
+      >
+        What we gonna Give you
+      </Text>
+      <HStack w="full" pt="50px" justifyContent="center">
+        <Elmnt products={products.slice(0, 3)} />
+        <Elmnt products={products.slice(3, 6)} />
+        <Elmnt
+          display={{ start: "none", md: "flex" }}
+          products={products.slice(6, 9)}
+        />
+      </HStack>
     </VStack>
   );
 };

@@ -1,16 +1,30 @@
-import { Box, HStack, Image, Text, VStack } from "@chakra-ui/react";
+import { Box, HStack, Image, Img, Text, VStack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useAnimatedView } from "hooks";
+import { useEffect, useState } from "react";
 import { useGetState } from "utils/state";
 
 const WhatWeDo = () => {
   const whatwedo = useAnimatedView(1);
   const newProduct = useAnimatedView(2);
   const someGood = useAnimatedView(3);
-  const place = useGetState("viewedItem");
+  const statePlace = useGetState("viewedItem");
+
+  const [place, setPlace] = useState<number>(0);
+
+  useEffect(() => {
+    console.log("place");
+    console.log(statePlace);
+    setPlace(() => statePlace as number);
+  }, [statePlace]);
 
   return (
-    <VStack w="full" pt="150px" px="50px" spacing="150px">
+    <VStack
+      w="full"
+      pt="150px"
+      px={{ start: "2%", md: "50px" }}
+      spacing="150px"
+    >
       <VStack spacing="30px">
         <HStack
           spacing="30px"
@@ -20,37 +34,84 @@ const WhatWeDo = () => {
           pos="relative"
         >
           <VStack spacing="0" h="full" w="auto" justifyContent="space-between">
-            <Text ref={whatwedo} />
-            <Text fontFamily="playFair" fontSize="50px" whiteSpace="nowrap">
+            <Text />
+            <Text
+              fontFamily="playFair"
+              fontSize={{ start: "30px", lg: "50px" }}
+              whiteSpace="nowrap"
+              ref={whatwedo}
+            >
               What We Do
             </Text>
           </VStack>
 
-          <Box pos="relative" w="full" h="300px">
+          <Box
+            pos="relative"
+            w="full"
+            h="auto"
+            display={{ start: "none", md: "block" }}
+            position="relative"
+          >
+            <Image
+              h="auto"
+              maxH="500px"
+              w="full"
+              src="/home-decoration.jpg"
+              opacity={0}
+            />
+
             {place === 1 ? (
               <Image
                 left="0"
-                top="0"
+                bottom="0"
                 pos="absolute"
                 as={motion.img}
+                h="auto"
                 w="full"
-                initial={false}
-                h="full"
-                bg="green"
-                layoutId="one"
-                src="https://cdn.dribbble.com/users/1254731/screenshots/16899784/media/9d83b579cc6279663ac0324bfc15d94f.jpg?compress=1&resize=1000x750&vertical=top"
+                maxH="500px"
+                layoutId="oneId"
+                src="/home-decoration.jpg"
+                objectFit="cover"
               />
             ) : (
-              <Box w="full" h="300px" />
+              <p />
             )}
           </Box>
         </HStack>
-        <Text color="gray" maxW="1300px">
+        <Box color="gray" maxW="1300px">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
           vulputate libero et velit interdum, ac aliquet odio mattis. Class
           aptent taciti sociosqu ad litora torquent per conubia nostra, per
           inceptos himenaeos.
-        </Text>
+        </Box>
+        <Box
+          h="auto"
+          w="full"
+          display={{ start: "block", md: "none" }}
+          pos="relative"
+        >
+          <Image
+            as={motion.img}
+            layoutId="two"
+            opacity={0}
+            h="full"
+            w="full"
+            src="/home-decoration.jpg"
+          />
+          {place === 1 && (
+            <Image
+              left="0"
+              bottom="0"
+              pos="absolute"
+              as={motion.img}
+              h="full"
+              layoutId="two"
+              w="full"
+              src="/home-decoration.jpg"
+              objectFit="cover"
+            />
+          )}
+        </Box>
       </VStack>
 
       <HStack
@@ -61,57 +122,96 @@ const WhatWeDo = () => {
         pt="250px"
         maxW="1300px"
       >
-        <VStack alignItems="start" w="55%" spacing="30px">
+        <VStack
+          alignItems="start"
+          w={{ start: "full", md: "55%" }}
+          spacing="30px"
+        >
           <Text
             fontFamily="playFair"
-            fontSize="50px"
+            fontSize={{ start: "30px", lg: "50px" }}
             whiteSpace="nowrap"
             ref={newProduct}
           >
-            some profuct name
+            our collections
           </Text>
-          <Box color="gray" pl="50px" w="auto">
+          <Img
+            as={motion.img}
+            src="/wood-chair-table.jpg"
+            layoutId="two"
+            top="0"
+            left="0"
+            w="full"
+            display={{ start: "block", md: "none" }}
+            h="full"
+            objectFit="cover"
+          />
+          <Box color="gray" pl={{ start: "30%", md: "50px" }} w="auto">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
             vulputate libero et velit interdum, ac aliquet odio mattis. Class
             aptent taciti sociosqu ad litora torquent per conubia nostra, per
             inceptos himenaeos.
           </Box>
         </VStack>
-        <Box w="40%" h="300px" pos="relative">
+        <Box
+          display={{ start: "none", md: "block" }}
+          w="40%"
+          h="auto"
+          pos="relative"
+        >
+          <Img opacity={0} src="/wood-chair-table.jpg" w="full" h="full" />
           {place === 2 && (
-            <Box
-              as={motion.div}
-              layoutId="one"
+            <Img
+              as={motion.img}
               pos="absolute"
+              src="/wood-chair-table.jpg"
+              layoutId="oneId"
               top="0"
               left="0"
               w="full"
               h="full"
-              bg="green"
+              objectFit="cover"
             />
           )}
         </Box>
       </HStack>
       <VStack w="full" h="auto" pos="relative">
-        <Image opacity="0" w="full" h="500px" border="none" />
+        <Image
+          src="/small-home.jpg"
+          objectFit="cover"
+          opacity={0}
+          border="none"
+          h="full"
+          maxH="90vh"
+          minH="700px"
+        />
         {place === 3 && (
           <Image
             pos="absolute"
-            src="/cover.png"
+            src="/small-home.jpg"
+            objectFit="cover"
             top="0"
             left="0"
+            minH="700px"
             as={motion.img}
-            layoutId="one"
+            layoutId="oneId"
             w="full"
             h="full"
             border="none"
+            maxH="90vh"
           />
         )}
-        <VStack w="full" h="auto" pos="absolute" bottom="0" p="30px">
-          <Text fontSize="50px" fontFamily="playFair">
-            some goood words
+        <VStack w="full" h="auto" pos="absolute" bottom="0" p="10px">
+          <Text
+            ref={someGood}
+            fontSize={{ start: "30px", lg: "50px" }}
+            fontFamily="playFair"
+            color="white"
+            textAlign="center"
+          >
+            the house you can live in
           </Text>
-          <Box textAlign="center" color="gray" ref={someGood}>
+          <Box textAlign="center" color="gray">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
             vulputate libero et velit interdum, ac aliquet odio mattis. Class
             aptent taciti sociosqu

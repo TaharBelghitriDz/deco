@@ -15,6 +15,6 @@ export const useGetFun = (key: keyof Omit<UseState, "state">) =>
   useStore((state) => state[key] as any);
 
 export const useGetState = (key: keyof StateType) =>
-  useStore((state) => state.state[key] as StateType[typeof key], shallow);
+  useStore((state) => state.state[key] as StateType[typeof key]);
 
 export default useStore;

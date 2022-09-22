@@ -5,12 +5,14 @@ import NewProducts from "compenents/newproducts";
 import WhatWeDo from "compenents/whatwedo.component";
 import { AnimatePresence } from "framer-motion";
 import Footer from "layouts/footer";
+import LoadingScreen from "layouts/loading.screen";
 import Navbar from "layouts/navbar";
 import theme from "theme";
 
 function App() {
   return (
     <VStack w="full" spacing="0">
+      {/* <LoadingScreen /> */}
       <Navbar />
       <HomeComponent />
       <WhatWeDo />
