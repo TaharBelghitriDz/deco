@@ -1,104 +1,77 @@
 import {
   Box,
-  Collapse,
+  ChakraProps,
   HStack,
   Image,
   Text,
-  useDisclosure,
   VStack,
 } from "@chakra-ui/react";
 import { motion, useAnimationControls, useInView } from "framer-motion";
-import { forwardRef, useEffect, useRef, useState } from "react";
+import { forwardRef, useRef, useState } from "react";
 import { StateType } from "types";
+import products from "utils/products";
 import { useGetFun, useGetState } from "utils/state";
 import { Arrow } from "./icons";
 
-const Array = forwardRef((props: { key: number; i: number }, ref: any) => {
-  const isLeftVIew = useInView(ref);
-  const controls = useAnimationControls();
-  useGetFun("isViewed")(props.i, isLeftVIew);
+const Array = forwardRef(
+  (props: ChakraProps & { key: number; i: number; product: any }, ref: any) => {
+    const isLeftVIew = useInView(ref);
+    const controls = useAnimationControls();
+    useGetFun("isViewed")(props.i, isLeftVIew);
 
-  return (
-    <>
-      <VStack
-        {...props}
-        as={motion.div}
-        ref={ref}
-        onHoverStart={() => controls.start({ opacity: 1 })}
-        onHoverEnd={() => controls.start({ opacity: 0 })}
-        flex="none"
-        spacing="0"
-        w="300px"
-        h="400px"
-        alignItems="flex-end"
-        overflow="hidden"
-        flexGrow={1}
-        pos="relative"
-      >
-        <Image
-          src="/cover.png"
-          objectFit="cover"
-          flex="none"
-          userSelect="none"
-          pos="absolute"
-          top="0"
-          left="0"
-          w="full"
-          h={400}
-        />
-        <Box
-          h="full"
-          w="full"
-          zIndex={4}
-          bgGradient="linear(#FFFFFF00 0%, rgb(0,0,0,50%) 100%)"
-        />
+    return (
+      <>
         <VStack
+          {...props}
           as={motion.div}
-          animate={controls}
-          alignItems="flex-start"
+          ref={ref}
+          onHoverStart={() => controls.start({ opacity: 1 })}
+          onHoverEnd={() => controls.start({ opacity: 0 })}
           flex="none"
-          w="full"
-          h="auto"
-          p="10px"
-          bg="rgb(0,0,0,50%)"
-          zIndex={3}
-          opacity="0"
+          spacing="0"
+          minH="300px"
+          alignItems="start"
+          justifyContent="start"
+          overflow="hidden"
+          flexGrow={1}
+          pos="relative"
         >
-          <Text
-            fontSize="32px"
-            lineHeight="32px"
-            fontWeight="bold"
-            color="white"
-          >
-            some product name
-          </Text>
-          <Text color="yellow">$ 134.68</Text>
+          <Image
+            src={props.product.src}
+            objectFit="contain"
+            flex="none"
+            userSelect="none"
+            top="0"
+            left="0"
+            // w="300px"
+            maxW={{ start: "250px", os: "300px" }}
+            maxH="500px"
+          />
         </VStack>
-      </VStack>
-    </>
-  );
-});
+      </>
+    );
+  }
+);
 
 const NewProducts = () => {
   const ref = useRef(null);
-
-  const products = [
-    useRef(null),
-    useRef(null),
-    useRef(null),
-    useRef(null),
-    useRef(null),
-    useRef(null),
-    useRef(null),
-    useRef(null),
-    useRef(null),
-  ];
+  const productsRef = products.map((e: any) => ((e.ref = useRef(null)), e));
 
   const viewedItems = useGetState("viewdItems") as StateType["viewdItems"];
 
   return (
-    <VStack maxW="1500px" spacing="50px" pt="150px">
-      <Text fontSize="50px" fontWeight="bold" fontFamily="playFair">
+    <VStack
+      maxW="1500px"
+      w="full"
+      spacing="50px"
+      pt="150px"
+      px={{ start: "5%", md: "50px" }}
+    >
+      <Text
+        fontSize={{ start: "30px", lg: "50px" }}
+        fontWeight="bold"
+        fontFamily="playFair"
+      >
         Our New Products
       </Text>
       <Text color="gray" textAlign="center" maxW="700px">
@@ -130,13 +103,14 @@ const NewProducts = () => {
       </HStack>
       <HStack
         overflow="hidden"
-        w="1300px"
+        w="full"
         flexGrow={1}
         ref={ref}
         spacing="25px"
+        alignItems="start"
       >
-        {products.map((e, i) => {
-          return <Array i={i} key={i} ref={products[i]} />;
+        {productsRef.map((e, i) => {
+          return <Array i={i} key={i} ref={e.ref} product={e} />;
         })}
       </HStack>
     </VStack>
