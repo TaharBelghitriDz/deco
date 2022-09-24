@@ -22,7 +22,7 @@ const WhatWeDo = () => {
     <VStack
       w="full"
       pt="150px"
-      px={{ start: "2%", md: "50px" }}
+      px={{ start: "5%", md: "50px" }}
       spacing="150px"
     >
       <VStack spacing="30px">
@@ -204,14 +204,14 @@ const WhatWeDo = () => {
         <VStack w="full" h="auto" pos="absolute" bottom="0" p="10px">
           <Text
             ref={someGood}
-            fontSize={{ start: "30px", lg: "50px" }}
+            fontSize={{ start: "25px", os: "30px", lg: "50px" }}
             fontFamily="playFair"
             color="white"
             textAlign="center"
           >
             the house you can live in
           </Text>
-          <Box textAlign="center" color="gray">
+          <Box textAlign="center" color="gray" fontSize="16px">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
             vulputate libero et velit interdum, ac aliquet odio mattis. Class
             aptent taciti sociosqu
