@@ -25,10 +25,11 @@ const Navbar = () => {
           as={motion.div}
           layoutId="i"
           pos="absolute"
-          top="0"
-          h="full"
-          w="full"
-          bg="#FFFFFF"
+          bottom="0"
+          h="10px"
+          w="10px"
+          bg="yellow"
+          rounded="full"
           style={{ opacity: "1" }}
           zIndex={-1}
           animate={mousLeave! ? { opacity: "0.0" } : undefined}
@@ -45,7 +46,7 @@ const Navbar = () => {
         color="gray"
         cursor="pointer"
         onHoverStart={() => setHoverd(i)}
-        whileHover={{ color: "#000000" }}
+        whileHover={{ color: "#F6AA1C" }}
       >
         {e}
       </Text>
