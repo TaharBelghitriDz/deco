@@ -1,9 +1,14 @@
-import React from "react";
+import React, { ComponentType, lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
 
+import LoadingScreen from "layouts/loading.screen";
+import { loader } from "utils/lazyLoading";
+
+const App = loader(() => import("App"), 10);
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <Suspense fallback={<LoadingScreen />}>
+      <App />
+    </Suspense>
   </React.StrictMode>
 );
