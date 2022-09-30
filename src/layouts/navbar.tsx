@@ -4,11 +4,18 @@ import { motion } from "framer-motion";
 import { useWindowScroll } from "hooks";
 import { useEffect, useState } from "react";
 
+export const categories = [
+  "chairs",
+  "tables",
+  "desk",
+  "beds",
+  "lights",
+  "sofa",
+];
+
 const Navbar = () => {
   const [hover, setHoverd] = useState<number>(-1);
   const [mousLeave, setMousLeave] = useState<boolean>(false);
-
-  const categories = ["chairs", "tables", "desk", "beds", "lights", "sofa"];
 
   const ElementsHover = (e: string, i: number) => (
     <Stack
