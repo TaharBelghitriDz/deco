@@ -7,7 +7,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { motion, useAnimationControls, useInView } from "framer-motion";
-import { forwardRef, useRef, useState } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import { StateType } from "types";
 import products from "utils/products";
 import { useGetFun, useGetState } from "utils/state";
@@ -43,9 +43,9 @@ const Array = forwardRef(
             userSelect="none"
             top="0"
             left="0"
-            // w="300px"
-            maxW={{ start: "250px", os: "300px" }}
-            maxH="500px"
+            //w="300px"
+            maxW={{ start: "300px", os: "500px" }}
+            maxH={{ start: "300px", os: "700px" }}
           />
         </VStack>
       </>
@@ -55,8 +55,41 @@ const Array = forwardRef(
 
 const NewProducts = () => {
   const ref = useRef(null);
+  const newProductView = useInView(ref);
+  const detecter = useRef(null);
   const productsRef = products.map((e: any) => ((e.ref = useRef(null)), e));
+  const [isOnShow, setShow] = useState(false);
+  const isViewed = useInView(detecter);
+  const [isHovered, setHover] = useState<[boolean, "right" | "left"]>([
+    false,
+    "left",
+  ]);
 
+  useEffect(() => {
+    setShow(true);
+    console.log("here");
+  }, [isViewed]);
+
+  useEffect(() => {
+    if (isHovered[0]) {
+      function scrollFun() {
+        const date = new Date();
+        console.log(isHovered[1] + " _ " + date.toLocaleDateString());
+        (ref.current as any).scrollBy({
+          top: 0,
+          behavior: "smooth",
+          left: isHovered[1] === "right" ? -50 : 50,
+        });
+      }
+      const interval = setInterval(scrollFun, 100);
+
+      return () => {
+        clearInterval(interval);
+      };
+    }
+  }, [isHovered[0]]);
+
+  document.body.style.overflow = "";
   const viewedItems = useGetState("viewdItems") as StateType["viewdItems"];
 
   return (
@@ -82,6 +115,8 @@ const NewProducts = () => {
       </Text>
       <HStack>
         <ArrowAni
+          onHoverEnd={() => setHover(() => [false, "right"])}
+          onHoverStart={() => setHover(() => [true, "right"])}
           onClick={() => {
             (ref.current as any).scrollBy({
               top: 0,
@@ -91,6 +126,8 @@ const NewProducts = () => {
           }}
         />
         <ArrowAni
+          onHoverEnd={() => setHover(() => [false, "right"])}
+          onHoverStart={() => setHover(() => [true, "left"])}
           onClick={() => {
             (ref.current as any).scrollBy({
               top: 0,
@@ -113,6 +150,7 @@ const NewProducts = () => {
           return <Array i={i} key={i} ref={e.ref} product={e} />;
         })}
       </HStack>
+      <p ref={detecter} />
     </VStack>
   );
 };
