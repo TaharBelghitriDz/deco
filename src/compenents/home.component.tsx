@@ -13,15 +13,29 @@ const HomeComponent = () => {
       color="white"
       h="100vh"
     >
-      <Box zIndex={1} h="100vh" w="full" bg="rgb(0,0,0,50%)" />
+      <Box
+        as={motion.div}
+        opacity={0}
+        animate={{ opacity: 1, transition: { type: "just", delay: 0.2 } }}
+        zIndex={1}
+        h="100vh"
+        w="full"
+        bg="rgb(0,0,0,50%)"
+      />
 
       <Image
         left="0"
-        top="0"
         pos="absolute"
         as={motion.img}
         w="full"
         h="full"
+        bottom="0"
+        opacity={0}
+        animate={{
+          left: 0,
+          opacity: 1,
+          transition: { type: "just" },
+        }}
         display={{ start: "none", md: "block" }}
         objectFit="cover"
         objectPosition="center"
@@ -58,14 +72,24 @@ const HomeComponent = () => {
           alignItems="center"
           justifyContent="center"
         >
-          {textAnimation({ content: '"Be faithful to your own taste, ' })}
           {textAnimation({
+            delay: 1,
+            content: '"Be faithful to your own taste, ',
+          })}
+          {textAnimation({
+            delay: 1,
             content: 'because nothing you really like is ever out of style."',
           })}
         </HStack>
         <Box color="gray" lineHeight="20px">
-          {textAnimation({ content: "shop furniture for greate prices," })}
-          {textAnimation({ content: "stylish furnishings and home decore" })}
+          {textAnimation({
+            delay: 1,
+            content: "shop furniture for greate prices,",
+          })}
+          {textAnimation({
+            delay: 1,
+            content: "stylish furnishings and home decore",
+          })}
         </Box>
         <Text
           as={motion.p}
@@ -75,7 +99,8 @@ const HomeComponent = () => {
           fontWeight="bold"
           bg="black"
           opacity={0}
-          animate={{ opacity: 1, transition: { delay: 0.3 } }}
+          animate={{ opacity: 1, transition: { delay: 1.3 } }}
+          onClick={() => {}}
         >
           discover
         </Text>
