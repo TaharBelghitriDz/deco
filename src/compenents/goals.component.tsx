@@ -80,6 +80,7 @@ const Goals = () => {
       maxW="1000px"
       alignItems="starts"
       spacing="50px"
+      px={{ start: "5%", md: "50px" }}
     >
       <Text
         as={motion.div}
@@ -120,7 +121,8 @@ const Goals = () => {
         fontFamily="playFair"
         opacity={0}
         animate={isVIewed && { opacity: 1 }}
-        w="80%"
+        w="full"
+        textAlign="center"
       >
         What we gonna Give you
       </Text>
