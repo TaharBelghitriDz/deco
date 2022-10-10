@@ -80,7 +80,6 @@ const Navbar = () => {
         alignItems="center"
       >
         <Image src="/Deco.svg" />
-
         <HStack
           as={motion.div}
           spacing="0"
@@ -91,18 +90,20 @@ const Navbar = () => {
         >
           {categories.map(ElementsHover)}
         </HStack>
-        <HStack spacing="0px" alignItems="center">
-          <Box
-            as={motion.div}
-            whileHover={{
-              backgroundColor: "#ffffff",
-              color: "#000000",
-            }}
-            cursor="pointer"
-            rounded="full"
-          >
-            <SearchIcon h="50px" w="50px" p="15px" />
-          </Box>
+        <Text
+          as={motion.div}
+          alignItems="center"
+          display={{ start: "flex", lg: "none" }}
+          fontSize="20px"
+          fontWeight="bold"
+          onClick={() => {
+            history.replaceState({ page: 2 }, "JavaScript", "/products");
+            window.location.reload();
+          }}
+        >
+          products
+        </Text>
+        <HStack spacing="10px" alignItems="center">
           <Box
             as={motion.div}
             whileHover={{
