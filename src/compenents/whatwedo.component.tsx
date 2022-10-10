@@ -201,7 +201,7 @@ const WhatWeDo = () => {
             maxH="90vh"
           />
         )}
-        <VStack w="full" h="auto" pos="absolute" bottom="0" p="10px">
+        <VStack w="full" h="auto" pos="absolute" bottom="0" p="10---px">
           <Text
             ref={someGood}
             fontSize={{ start: "25px", os: "30px", lg: "50px" }}
